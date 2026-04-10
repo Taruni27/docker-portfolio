@@ -56,22 +56,28 @@ http://54.91.161.0
 ## 📸 Screenshots
 
 ### Docker Build
-![Docker Build](screenshots/docker-build.png)
+<img width="1707" height="758" alt="docker-build" src="https://github.com/user-attachments/assets/583b6ed5-a627-441f-a938-3a5ebec1f93a" />
+
 
 ### Docker Running (Local)
-![Docker Local](screenshots/docker-ps-local.png)
+<img width="1709" height="110" alt="docker-ps-local" src="https://github.com/user-attachments/assets/a38e0ed2-415d-481a-9166-a2bbfea9556c" />
+
 
 ### Local Website
-![Local Site](screenshots/local-site.png)
+<img width="934" height="929" alt="local-site" src="https://github.com/user-attachments/assets/223ab68c-d699-4242-be3a-8ef821306e33" />
+
 
 ### EC2 Instance
-![EC2 Instance](screenshots/ec2-instance.png)
+<img width="1920" height="833" alt="ec2-instance" src="https://github.com/user-attachments/assets/3a21db7c-9445-42ac-9dc5-741c5a18f226" />
+
 
 ### Docker Running on EC2
-![EC2 Docker](screenshots/ec2-docker.png)
+<img width="1494" height="338" alt="ec2-docker" src="https://github.com/user-attachments/assets/a04b30e8-be4c-454d-a430-bbe5081f3aaf" />
+
 
 ### Live Website
-![Live Site](screenshots/live-site.png)
+<img width="1050" height="950" alt="live-site" src="https://github.com/user-attachments/assets/daecabd8-2982-451e-99e3-9fe8ebfdad7b" />
+
 
 ---
 
