@@ -1,49 +1,28 @@
-name: Deploy to EC2
+- name: Deploy to EC2
+  run: |
+    ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
 
-on:
-  push:
-    branches:
-      - main
+      echo "Connected to EC2"
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+      cd ~ || exit
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      if [ -d "app" ]; then
+        cd app
+        git pull origin main
+      else
+        git clone https://github.com/${{ github.repository }}.git app
+        cd app
+      fi
 
-      - name: Setup SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+      # Stop old container (IMPORTANT FIX)
+      sudo docker stop myapp || true
+      sudo docker rm myapp || true
 
-      - name: Add EC2 to known hosts
-        run: |
-          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+      # Remove old images (optional cleanup)
+      sudo docker image prune -f
 
-      - name: Deploy to EC2
-        run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.USERNAME }}@${{ secrets.HOST }} << 'EOF'
-            echo "Connected to EC2"
+      # Build and run new container
+      sudo docker build -t myapp .
+      sudo docker run -d -p 80:80 --name myapp myapp
 
-            # Move to project folder (change if needed)
-            cd ~ || exit
-
-            # If repo already exists, update it
-            if [ -d "app" ]; then
-              cd app
-              git pull origin main
-            else
-              git clone https://github.com/${{ github.repository }}.git app
-              cd app
-            fi
-
-            # Build and run Docker
-            sudo docker stop myapp || true
-            sudo docker rm myapp || true
-            sudo docker build -t myapp .
-            sudo docker run -d -p 80:80 --name myapp myapp
-
-          EOF
+    EOF
